@@ -248,7 +248,11 @@ class KeyboardAnimationCallback(
 
     var progress = 0.0
     try {
-      progress = abs((height / persistentKeyboardHeight)).let { if (it.isNaN()) 0.0 else it }
+      progress = if (persistentKeyboardHeight != 0.0){
+        abs(height / persistentKeyboardHeight)
+      } else {
+        0.0
+      }
     } catch (e: ArithmeticException) {
       // do nothing, just log an exception send progress as 0
       Logger.w(TAG, "Caught arithmetic exception during `progress` calculation: $e")
